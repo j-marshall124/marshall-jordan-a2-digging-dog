@@ -11,11 +11,11 @@ namespace MohawkGame2D
     public class Game
     {
         // Place your variables here:
-        
+
         // Window Arrays
         int[] windowX = [330, 430];
         int[] frameX = [347, 330, 447, 430];
-        int[] frameY = [170, 188, 170, 188];
+        int[] frameY = [150, 168, 150, 168];
         int[] frameW = [5, 40, 5, 40];
         int[] frameH = [40, 5, 40, 5];
 
@@ -42,7 +42,7 @@ namespace MohawkGame2D
         Color innerHole = new Color(120, 90, 85);
         Color fence = new Color(186, 146, 115);
         Color bushesGreen = new Color(50, 86, 29);
- 
+
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
@@ -97,7 +97,7 @@ namespace MohawkGame2D
                 DrawDog();
             }
 
-            DrawBushes(0, 575);
+            DrawBushes(0, 570);
             DrawClouds();
         }
         void DrawMark() // Drawing for the X
@@ -136,18 +136,18 @@ namespace MohawkGame2D
         void DrawHouse() // House drawing
         {
             Draw.FillColor = Brown;
-            Draw.Rectangle(300, 150, 200, 150); // House
+            Draw.Rectangle(300, 130, 200, 150); // House
             Draw.FillColor = roofRed;
-            Draw.Triangle(300, 150, 400, 50, 500, 150); // Roof
+            Draw.Triangle(300, 130, 400, 30, 500, 130); // Roof
             Draw.FillColor = Color.DarkGray;
-            Draw.Rectangle(370, 230, 60, 70);
+            Draw.Rectangle(370, 210, 60, 70); // Door
             Draw.FillColor = Color.Black;
-            Draw.Circle(420, 270, 5);
+            Draw.Circle(420, 250, 5); // Doorknob
 
             Draw.FillColor = indoorYellow;
             for (int windowIndex = 0; windowIndex < 2; windowIndex++) // Draws the two windows
             {
-                Draw.Square(windowX[windowIndex], 170, 40);
+                Draw.Square(windowX[windowIndex], 150, 40);
             }
 
             Draw.FillColor = Color.Black;
@@ -155,7 +155,7 @@ namespace MohawkGame2D
             {
                 Draw.Rectangle(frameX[frameIndex], frameY[frameIndex], frameW[frameIndex], frameH[frameIndex]);
             }
-            
+
         }
         void DrawDogHouse() // Dog house drawing
         {
@@ -191,82 +191,94 @@ namespace MohawkGame2D
         }
         void DrawDog() // Draws the dog and moves it with the mouse cursor
         {
+            float dogHeight = Input.GetMouseY();
+
+            if (dogHeight < 250)
+            {
+                dogHeight = 250;
+            }
             Draw.FillColor = dogBrown;
             // Body
-            Draw.Rectangle(Input.GetMouseX() - 45, Input.GetMouseY() - 20, 90, 40);
+            Draw.Rectangle(Input.GetMouseX() - 45, dogHeight - 20, 90, 40);
 
             // Head
-            Draw.Square(Input.GetMouseX() + 30, Input.GetMouseY() - 40, 40);
+            Draw.Square(Input.GetMouseX() + 30, dogHeight - 40, 40);
 
             // Ears
             Draw.FillColor = dogLegs;
-            Draw.Quad(Input.GetMouseX() + 30, Input.GetMouseY() - 40, Input.GetMouseX() + 25, Input.GetMouseY() - 25, Input.GetMouseX() + 35, Input.GetMouseY() - 20, Input.GetMouseX() + 40, Input.GetMouseY() - 30);
+            Draw.Quad(Input.GetMouseX() + 30, dogHeight - 40, Input.GetMouseX() + 25, dogHeight - 25, Input.GetMouseX() + 35, dogHeight - 20, Input.GetMouseX() + 40, dogHeight - 30);
 
             // Eyes
             Draw.FillColor = Color.OffWhite;
-            Draw.Square(Input.GetMouseX() + 55, Input.GetMouseY() - 35, 15);
+            Draw.Square(Input.GetMouseX() + 55, dogHeight - 35, 15);
             Draw.FillColor = dogEyes;
-            Draw.Square(Input.GetMouseX() + 60, Input.GetMouseY() - 30, 10);
+            Draw.Square(Input.GetMouseX() + 60, dogHeight - 30, 10);
 
             // Nose            
             Draw.FillColor = dogBrown;
-            Draw.Square(Input.GetMouseX() + 60, Input.GetMouseY() - 20, 20);            
+            Draw.Square(Input.GetMouseX() + 60, dogHeight - 20, 20);
             Draw.FillColor = Color.Black;
-            Draw.Square(Input.GetMouseX() + 75, Input.GetMouseY() - 20, 5);
+            Draw.Square(Input.GetMouseX() + 75, dogHeight - 20, 5);
 
             // Tail
             Draw.FillColor = dogBrown;
-            Draw.Quad(Input.GetMouseX() - 60, Input.GetMouseY() - 30, Input.GetMouseX() - 50, Input.GetMouseY() - 40, Input.GetMouseX() - 30, Input.GetMouseY() - 20, Input.GetMouseX() - 40, Input.GetMouseY() - 10);
-            
+            Draw.Quad(Input.GetMouseX() - 60, dogHeight - 30, Input.GetMouseX() - 50, dogHeight - 40, Input.GetMouseX() - 30, dogHeight - 20, Input.GetMouseX() - 40, dogHeight - 10);
+
             // Back Legs
             Draw.FillColor = dogLegs;
-            Draw.Rectangle(Input.GetMouseX() - 25, Input.GetMouseY() + 20, 10, 10);
-            Draw.Rectangle(Input.GetMouseX() +30, Input.GetMouseY() + 20, 10, 10);
+            Draw.Rectangle(Input.GetMouseX() - 25, dogHeight + 20, 10, 10);
+            Draw.Rectangle(Input.GetMouseX() + 30, dogHeight + 20, 10, 10);
 
             // Front Legs
             Draw.FillColor = dogBrown;
-            Draw.Rectangle(Input.GetMouseX() - 30, Input.GetMouseY() + 20, 10, 20);
-            Draw.Rectangle(Input.GetMouseX() + 25, Input.GetMouseY() + 20, 10, 20);
+            Draw.Rectangle(Input.GetMouseX() - 30, dogHeight + 20, 10, 20);
+            Draw.Rectangle(Input.GetMouseX() + 25, dogHeight + 20, 10, 20);
         }
         void DrawDogBark() // Draws the dog barking
         {
+            float dogHeight = Input.GetMouseY();
+
+            if (dogHeight < 250)
+            {
+                dogHeight = 250;
+            }
             Draw.FillColor = dogBrown;
             // Body
-            Draw.Rectangle(Input.GetMouseX() - 45, Input.GetMouseY() - 20, 90, 40);
+            Draw.Rectangle(Input.GetMouseX() - 45, dogHeight - 20, 90, 40);
 
             // Head
-            Draw.Square(Input.GetMouseX() + 30, Input.GetMouseY() - 40, 40);
+            Draw.Square(Input.GetMouseX() + 30, dogHeight - 40, 40);
 
             // Ears
             Draw.FillColor = dogLegs;
-            Draw.Quad(Input.GetMouseX() + 30, Input.GetMouseY() - 40, Input.GetMouseX() + 25, Input.GetMouseY() - 25, Input.GetMouseX() + 35, Input.GetMouseY() - 20, Input.GetMouseX() + 40, Input.GetMouseY() - 30);
+            Draw.Quad(Input.GetMouseX() + 30, dogHeight - 40, Input.GetMouseX() + 25, dogHeight - 25, Input.GetMouseX() + 35, dogHeight - 20, Input.GetMouseX() + 40, dogHeight - 30);
 
             // Eyes
             Draw.FillColor = Color.OffWhite;
-            Draw.Square(Input.GetMouseX() + 55, Input.GetMouseY() - 35, 15);
+            Draw.Square(Input.GetMouseX() + 55, dogHeight - 35, 15);
             Draw.FillColor = dogEyes;
-            Draw.Square(Input.GetMouseX() + 60, Input.GetMouseY() - 30, 10);
+            Draw.Square(Input.GetMouseX() + 60, dogHeight - 30, 10);
 
             // Nose            
             Draw.FillColor = dogBrown;
-            Draw.Rectangle(Input.GetMouseX() + 60, Input.GetMouseY() - 20, 20, 10);
-            Draw.Quad(Input.GetMouseX() + 63, Input.GetMouseY() - 7, Input.GetMouseX() + 57, Input.GetMouseY() - 3, Input.GetMouseX() + 73, Input.GetMouseY() + 2, Input.GetMouseX() + 78, Input.GetMouseY() - 3);
+            Draw.Rectangle(Input.GetMouseX() + 60, dogHeight - 20, 20, 10);
+            Draw.Quad(Input.GetMouseX() + 63, dogHeight - 7, Input.GetMouseX() + 57, dogHeight - 3, Input.GetMouseX() + 73, dogHeight + 2, Input.GetMouseX() + 78, dogHeight - 3);
             Draw.FillColor = Color.Black;
-            Draw.Square(Input.GetMouseX() + 75, Input.GetMouseY() - 20, 5);
+            Draw.Square(Input.GetMouseX() + 75, dogHeight - 20, 5);
 
             // Tail
             Draw.FillColor = dogBrown;
-            Draw.Rectangle(Input.GetMouseX() - 45, Input.GetMouseY() - 40, 15, 25);
+            Draw.Rectangle(Input.GetMouseX() - 45, dogHeight - 40, 15, 25);
 
             // Back Legs
             Draw.FillColor = dogLegs;
-            Draw.Rectangle(Input.GetMouseX() - 25, Input.GetMouseY() + 20, 10, 10);
-            Draw.Rectangle(Input.GetMouseX() + 30, Input.GetMouseY() + 20, 10, 10);
+            Draw.Rectangle(Input.GetMouseX() - 25, dogHeight + 20, 10, 10);
+            Draw.Rectangle(Input.GetMouseX() + 30, dogHeight + 20, 10, 10);
 
             // Front Legs
             Draw.FillColor = dogBrown;
-            Draw.Rectangle(Input.GetMouseX() - 30, Input.GetMouseY() + 20, 10, 20);
-            Draw.Rectangle(Input.GetMouseX() + 25, Input.GetMouseY() + 20, 10, 20);
+            Draw.Rectangle(Input.GetMouseX() - 30, dogHeight + 20, 10, 20);
+            Draw.Rectangle(Input.GetMouseX() + 25, dogHeight + 20, 10, 20);
         }
     }
 }
